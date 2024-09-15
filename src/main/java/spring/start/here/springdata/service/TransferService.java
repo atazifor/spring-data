@@ -21,7 +21,7 @@ public class TransferService {
         Account receiverAccount = accountRepository.findById(receiverId).orElseThrow(() -> new AccountNotFoundException());
 
         BigDecimal senderNewAmount = senderAccount.getAmount().subtract(amount);
-        BigDecimal receiverNewAmount = senderAccount.getAmount().add(amount);
+        BigDecimal receiverNewAmount = receiverAccount.getAmount().add(amount);
 
         accountRepository.changeAmount(senderId, senderNewAmount);
         accountRepository.changeAmount(receiverId, receiverNewAmount);
