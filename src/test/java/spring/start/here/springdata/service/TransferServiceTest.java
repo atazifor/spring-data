@@ -1,6 +1,10 @@
 package spring.start.here.springdata.service;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import spring.start.here.springdata.model.Account;
 import spring.start.here.springdata.repository.AccountRepository;
 
@@ -11,13 +15,16 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class) //allow use of @Mock and @InjectMocks
 class TransferServiceTest {
+    @Mock //framework create's mock object and inject to this annotated field
+    private AccountRepository accountRepository;
+
+    @InjectMocks //create tested object (real instance) and inject all mocks created with @Mock
+    private TransferService transferService;
 
     @Test
     void transferMoneyHappyFlow() {
-        AccountRepository accountRepository = mock(AccountRepository.class);
-        TransferService transferService = new TransferService(accountRepository);
-
         //assumptions
         Account sender = new Account();
         sender.setId(1l);
